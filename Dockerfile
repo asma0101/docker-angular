@@ -1,4 +1,5 @@
 From node:alpine as builder
+RUN npm install 
 WORKDIR '/app'
 COPY package.json .
 RUN npm install
@@ -11,3 +12,4 @@ FROM nginx
 #copy /app/build folder from builder stage into /usr/share/nginx/html
 EXPOSE 80
 COPY --from=builder /app/dist/angular-app /usr/share/nginx/html
+CMD ["npm", "start"]
