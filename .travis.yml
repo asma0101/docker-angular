@@ -1,0 +1,18 @@
+sudo: required
+services:
+  - docker
+before_install:
+  - docker build -t asma602/docker-angular -f Dockerfile.dev .
+script:
+  - docker run -e CI=true asma602/docker-angular npm run test 
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-1"
+  app: "docker-angular"
+  env: "Dockerangular-env"
+  bucket_name: "elasticbeanstalk-us-east-1-115846039533"
+  bucket_path: "docker-angular"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
