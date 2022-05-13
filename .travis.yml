@@ -4,7 +4,7 @@ services:
 before_install:
   - docker build -t asma602/docker-angular -f Dockerfile.dev .
 script:
-  - docker run -e CI=true asma602/docker-angular npm run test 
+  - docker run -e CI=true asma602/docker-angular npm run test -- --watch=false --no-progress --browsers=ChromeHeadlessNoSandbox
 deploy:
   provider: elasticbeanstalk
   region: "us-east-1"
